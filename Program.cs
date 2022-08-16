@@ -28,7 +28,7 @@ Usuario usuario2 = new Usuario
 
 Usuario usuario3 = new Usuario
 {
-    Id = 3,
+    Id = 4,
     NombreCompleto = "Manuel",
     NombreUsuario = "manuel@gmail.com",
     Constraseña = "000001"
@@ -44,7 +44,7 @@ Usuario usuario4 = new Usuario
 
 Usuario usuario5 = new Usuario
 {
-    Id = 5,
+    Id = 4,
     NombreCompleto = "Jose",
     NombreUsuario = "jose@gmail.com",
     Constraseña = "11122"
@@ -57,79 +57,75 @@ usuarios.Add(usuario3);
 usuarios.Add(usuario4);
 usuarios.Add(usuario5);
 
-//leer una lista (con foreach)
-foreach (Usuario u in usuarios)
-{
-    Console.WriteLine($"Id: {u.Id} Nombre: {u.NombreCompleto}");
-}
-
-//leer una lista (con for)
-//Propiedad Count, indica la cantidad de elementos que contiene una lista
-for (int i = 0; i < usuarios.Count; i++)
-{
-    Console.WriteLine($"Id: {usuarios[i].Id} Nombre: {usuarios[i].NombreCompleto}");
-}
-
-//usuarios.Sort(); no funciona, porque hay que especificar el Comparer
-
-//Uso el paquete ConsoleTables
+//--------------- ForEach----------------
+//leer una lista (con método foreach)
 Console.Clear();
 var table = new ConsoleTable("ID", "Nombre", "Usuario", "Contraseña");
-foreach (Usuario u in usuarios)
-{
-    table.AddRow(u.Id, u.NombreCompleto, u.NombreUsuario, u.Constraseña);
-}
+//ciclo de iteracion ForEach
+// foreach (Usuario u in usuarios)
+// {
+//     table.AddRow(u.Id, u.NombreCompleto, u.NombreUsuario, u.Constraseña);
+// }
+
+//Metodo con mas de una linea, se usan {}
+// usuarios.ForEach(u =>
+// {
+//     table.AddRow(u.Id, u.NombreCompleto, u.NombreUsuario, u.Constraseña);
+// });
+
+usuarios.ForEach(u =>
+    table.AddRow(u.Id, u.NombreCompleto, u.NombreUsuario, u.Constraseña));
 
 table.Write();
 
-//----------------Método Select-----------------
-//Notacion Fluent
-var resultadoSelect = usuarios.Select(x => new { x.Id, x.NombreUsuario });
+//--------------- All ----------------
+bool resultado1 = usuarios.All(x => x.Id > 0);
+System.Console.WriteLine($"Resultado All: {resultado1}");
 
-//Notacion Query
-var resultadoSelect = from x in usuarios
-                      select new { x.Id, x.NombreUsuario };
+bool resultado2 = usuarios.All(x => x.Id > 3 && x.Id < 10);
+System.Console.WriteLine($"Resultado All: {resultado2}");
 
-Console.Clear();
-var table = new ConsoleTable("ID", "Usuario");
-foreach (var u in resultadoSelect)
-{
-    table.AddRow(u.Id, u.NombreUsuario);
-}
+//--------------- Any ----------------
+bool resultado3 = usuarios.Any(x => x.Id > 4);
+System.Console.WriteLine($"Resultado Any: {resultado3}");
 
-table.Write();
+bool resultado4 = usuarios.Any(x => x.Id == 100);
+System.Console.WriteLine($"Resultado Any: {resultado4}");
 
-//----------------Método Where-----------------
-//Notacion Fluent
-var resultadoWhere = usuarios.Where(x => x.Id > 1 && x.Id % 2 == 0);
+//--------------- First ----------------
+var resultado = usuarios.First(x => x.Id == 2);
+Console.WriteLine($"Id: {resultado.Id} Nombre: {resultado.NombreCompleto}");
 
-//Notacion Query
-var resultadoWhere = from u in usuarios
-                     where u.Id > 1 && u.Id % 2 == 0
-                     select u;
+//Aclaracion: si la condicion del First no se cumple, se lanza una excepcion
+//corta la ejecucion del programa
+//var resultadoFirst2 = usuarios.First(x => x.Id == 1000);
+//Console.WriteLine($"Id: {resultadoFirst2.Id} Nombre: {resultadoFirst2.NombreCompleto}");
 
-Console.Clear();
-var table = new ConsoleTable("ID", "Nombre", "Usuario", "Contraseña");
-foreach (Usuario u in resultadoWhere)
-{
-    table.AddRow(u.Id, u.NombreCompleto, u.NombreUsuario, u.Constraseña);
-}
+//--------------- FirstOrDefault ----------------
+//Aclaracion: si la condicion del FirstOrDefault no se cumple, retorna NULL
+var resultadoFirst3 = usuarios.FirstOrDefault(x => x.Id == 4);
 
-table.Write();
+if (resultadoFirst3 != null)
+    Console.WriteLine($"Id: {resultadoFirst3.Id} Nombre: {resultadoFirst3.NombreCompleto}");
 
-//----------------Método OrderBy-----------------
-//Notacion Fluent
-var resultadoOrderBy = usuarios.OrderByDescending(x => x.Id);
+//--------------- Last ----------------
+var resultadoLast1 = usuarios.Last(x => x.Id == 2);
+Console.WriteLine($"Id: {resultadoLast1.Id} Nombre: {resultadoLast1.NombreCompleto}");
 
-//Notacion Query
-var resultadoOrderBy = from usuario in usuarios
-                       orderby usuario.Id descending
-                       select usuario;
-Console.Clear();
-var table = new ConsoleTable("ID", "Nombre", "Usuario", "Contraseña");
-foreach (Usuario u in resultadoOrderBy)
-{
-    table.AddRow(u.Id, u.NombreCompleto, u.NombreUsuario, u.Constraseña);
-}
+//Aclaracion: si la condicion del First no se cumple, se lanza una excepcion
+//corta la ejecucion del programa
+//var resultadoFirst2 = usuarios.First(x => x.Id == 1000);
+//Console.WriteLine($"Id: {resultadoFirst2.Id} Nombre: {resultadoFirst2.NombreCompleto}");
 
-table.Write();
+//--------------- LastOrDefault ----------------
+//Aclaracion: si la condicion del FirstOrDefault no se cumple, retorna NULL
+var resultadoLast2 = usuarios.LastOrDefault(x => x.Id == 4);
+
+if (resultadoLast2 != null)
+    Console.WriteLine($"Id: {resultadoLast2.Id} Nombre: {resultadoLast2.NombreCompleto}");
+
+//--------------- Uso de First o Last con Where ----------------
+var resultadoWhere1 = usuarios.Where(x => x.Id == 4).First();
+var resultadoWhere2 = usuarios.Where(x => x.Id == 2000).FirstOrDefault();
+var resultadoWhere3 = usuarios.Where(x => x.Id == 4).Last();
+var resultadoWhere4 = usuarios.Where(x => x.Id == 3000).LastOrDefault();
