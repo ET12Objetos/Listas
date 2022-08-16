@@ -15,7 +15,7 @@ Usuario usuario1 = new Usuario
     Id = 1,
     NombreCompleto = "Juan",
     NombreUsuario = "juan@gmail.com",
-    Constraseña = "1234"
+    Contraseña = "1234"
 };
 
 Usuario usuario2 = new Usuario
@@ -23,7 +23,7 @@ Usuario usuario2 = new Usuario
     Id = 2,
     NombreCompleto = "Mario",
     NombreUsuario = "mario@gmail.com",
-    Constraseña = "939339"
+    Contraseña = "939339"
 };
 
 Usuario usuario3 = new Usuario
@@ -31,7 +31,7 @@ Usuario usuario3 = new Usuario
     Id = 4,
     NombreCompleto = "Manuel",
     NombreUsuario = "manuel@gmail.com",
-    Constraseña = "000001"
+    Contraseña = "000001"
 };
 
 Usuario usuario4 = new Usuario
@@ -39,7 +39,7 @@ Usuario usuario4 = new Usuario
     Id = 4,
     NombreCompleto = "Matias",
     NombreUsuario = "matias@gmail.com",
-    Constraseña = "911232"
+    Contraseña = "911232"
 };
 
 Usuario usuario5 = new Usuario
@@ -47,7 +47,7 @@ Usuario usuario5 = new Usuario
     Id = 4,
     NombreCompleto = "Jose",
     NombreUsuario = "jose@gmail.com",
-    Constraseña = "11122"
+    Contraseña = "11122"
 };
 
 //agregar usuarios a la lista
@@ -62,19 +62,19 @@ usuarios.Add(usuario5);
 Console.Clear();
 var table = new ConsoleTable("ID", "Nombre", "Usuario", "Contraseña");
 //ciclo de iteracion ForEach
-// foreach (Usuario u in usuarios)
-// {
-//     table.AddRow(u.Id, u.NombreCompleto, u.NombreUsuario, u.Constraseña);
-// }
+foreach (Usuario u in usuarios)
+{
+    table.AddRow(u.Id, u.NombreCompleto, u.NombreUsuario, u.Contraseña);
+}
 
 //Metodo con mas de una linea, se usan {}
-// usuarios.ForEach(u =>
-// {
-//     table.AddRow(u.Id, u.NombreCompleto, u.NombreUsuario, u.Constraseña);
-// });
+usuarios.ForEach(u =>
+{
+    table.AddRow(u.Id, u.NombreCompleto, u.NombreUsuario, u.Contraseña);
+});
 
 usuarios.ForEach(u =>
-    table.AddRow(u.Id, u.NombreCompleto, u.NombreUsuario, u.Constraseña));
+    table.AddRow(u.Id, u.NombreCompleto, u.NombreUsuario, u.Contraseña));
 
 table.Write();
 
@@ -98,8 +98,8 @@ Console.WriteLine($"Id: {resultado.Id} Nombre: {resultado.NombreCompleto}");
 
 //Aclaracion: si la condicion del First no se cumple, se lanza una excepcion
 //corta la ejecucion del programa
-//var resultadoFirst2 = usuarios.First(x => x.Id == 1000);
-//Console.WriteLine($"Id: {resultadoFirst2.Id} Nombre: {resultadoFirst2.NombreCompleto}");
+var resultadoFirst2 = usuarios.First(x => x.Id == 1000);
+Console.WriteLine($"Id: {resultadoFirst2.Id} Nombre: {resultadoFirst2.NombreCompleto}");
 
 //--------------- FirstOrDefault ----------------
 //Aclaracion: si la condicion del FirstOrDefault no se cumple, retorna NULL
@@ -114,8 +114,8 @@ Console.WriteLine($"Id: {resultadoLast1.Id} Nombre: {resultadoLast1.NombreComple
 
 //Aclaracion: si la condicion del First no se cumple, se lanza una excepcion
 //corta la ejecucion del programa
-//var resultadoFirst2 = usuarios.First(x => x.Id == 1000);
-//Console.WriteLine($"Id: {resultadoFirst2.Id} Nombre: {resultadoFirst2.NombreCompleto}");
+var resultadoFirst2 = usuarios.First(x => x.Id == 1000);
+Console.WriteLine($"Id: {resultadoFirst2.Id} Nombre: {resultadoFirst2.NombreCompleto}");
 
 //--------------- LastOrDefault ----------------
 //Aclaracion: si la condicion del FirstOrDefault no se cumple, retorna NULL
